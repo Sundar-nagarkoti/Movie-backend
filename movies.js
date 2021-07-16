@@ -63,3 +63,5 @@
       dailyRentalRate: 3.5
     }
   ];
+
+ 
