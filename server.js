@@ -4,17 +4,33 @@ let server=express(); //this line makes server
 
 let data=require("./data.json");
 
-let g=data.map((e)=>{
-    return e.genre;
-})
-
-
 server.get("/movies",function(req,res){
-    res.send(data);
+    res.json(data);
 });
 
+
+
+
 server.get("/genre",function(req,res){
-    res.send(g);
+   
+let allGenreObjects= data.map((e)=>{
+   return e.genre;
+});
+
+let uinqueGenre=[];
+for(let i=0;i<allGenreObjects.length;i++){
+   let genreId=allGenreObjects[i]["_id"];
+
+   let index=uinqueGenre.findIndex(function(e){
+       return e._id==genreId;
+   });
+
+   if(index==-1){
+       uinqueGenre.push(allGenreObjects[i]);
+   }
+}
+
+    res.json(uinqueGenre);
 });
 
 server.listen(4000);
